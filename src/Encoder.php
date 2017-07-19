@@ -65,7 +65,6 @@ class Encoder extends XmlEncoder
         libxml_disable_entity_loader($disableEntities);
 
         if (!$valid) {
-            // @todo how do we format xml responses?
             throw new XsdValidationException($error);
         }
 

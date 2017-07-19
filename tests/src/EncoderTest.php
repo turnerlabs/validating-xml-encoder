@@ -7,7 +7,6 @@ use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 
 class EncoderTest extends TestCase
 {
-
     public function testUnreadableXsd()
     {
         $this->markTestIncomplete();

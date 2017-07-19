@@ -6,11 +6,10 @@ use PHPUnit\Framework\TestCase;
 use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 
 /**
- * @coversDefaultClass TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException
+ * @coversDefaultClass \TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException
  */
 class XsdValidationExceptionTest extends TestCase
 {
-
     /**
      * Test returning the original libxml error.
      *
@@ -27,13 +26,17 @@ class XsdValidationExceptionTest extends TestCase
     /**
      * Test the error message we generate.
      *
+     * @param string $level  The error level to test against.
+     * @param string $string The error string to test against.
      * @covers ::__construct
+     * @dataProvider getXsdErrorLevels
      */
-    public function testGetMessage()
+    public function testGetMessage($level, $string)
     {
         $error = $this->getLibXmlError();
+        $error->level = $level;
         $e = new XsdValidationException($error);
-        $this->assertEquals('XSD validation fatal code 123 in /tmp/file.xml line 789 column 456: This is a test', $e->getMessage());
+        $this->assertEquals("XSD validation $string code 123 in /tmp/file.xml line 789 column 456: This is a test", $e->getMessage());
     }
 
     public function testGetCode()
@@ -44,6 +47,22 @@ class XsdValidationExceptionTest extends TestCase
     public function testGetPrevious()
     {
         $this->markTestIncomplete();
+    }
+
+    /**
+     * Return libxml error levels and the human-readable version.
+     *
+     * @return array
+     *               The array of error levels and error strings.
+     */
+    public function getXsdErrorLevels()
+    {
+        return array(
+            array(LIBXML_ERR_WARNING, 'warning'),
+            array(LIBXML_ERR_ERROR, 'error'),
+            array(LIBXML_ERR_FATAL, 'fatal'),
+            array(-1, 'unknown'),
+        );
     }
 
     /**

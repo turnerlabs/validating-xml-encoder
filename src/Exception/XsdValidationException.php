@@ -27,7 +27,7 @@ class XsdValidationException extends UnexpectedValueException
                 $level = 'fatal';
                 break;
             default:
-                $level = 'info';
+                $level = 'unknown';
                 break;
         }
 

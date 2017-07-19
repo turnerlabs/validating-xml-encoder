@@ -1,6 +1,6 @@
 {
     "name": "turnerlabs/validating-xml-encoder",
-    "description": "An XML Encoder that validates the result against an XSD.",
+    "description": "A XML Encoder that validates the result against an XSD.",
     "type": "library",
     "require": {
         "php": "^5.6 || ^7.0",

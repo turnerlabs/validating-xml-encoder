@@ -71,8 +71,6 @@ jobs:
         -image: circleci/php:7.0
   phpunit-71:
      <<: *phpunit
-     docker:
-        -image: circleci/php:7.1
 
   code-fixer:
     <<: *defaults

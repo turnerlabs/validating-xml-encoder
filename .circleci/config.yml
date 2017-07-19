@@ -33,7 +33,7 @@ jobs:
                   exit 1
               fi
 
-              sudo php composer-setup.php --quiet --install-dir /usr/local/bin
+              sudo php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
               RESULT=$?
               rm composer-setup.php
               exit $RESULT

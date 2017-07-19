@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  phpunit:
     docker:
       # specify the version you desire here
       - image: circleci/php:7.1.5-browsers
@@ -105,3 +105,9 @@ jobs:
 
       # run tests!
       - run: vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --stop-on-violation --using-cache=no --path-mode=intersection -- src tests
+
+  workflows:
+    version: 2
+      test_and_lint:
+        - phpunit
+        - code-fixer

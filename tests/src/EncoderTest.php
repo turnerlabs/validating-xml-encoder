@@ -71,6 +71,9 @@ class EncoderTest extends TestCase
 
     /**
      * Test validating and encoding.
+     *
+     * @covers ::encode
+     * @covers ::createDomDocument
      */
     public function testValidXsd()
     {
@@ -102,9 +105,35 @@ XML;
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @covers ::encode
+     */
     public function testInvalidXml()
     {
-        $this->markTestIncomplete();
+        $xsd =<<<XSD
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="root" type="RootType"/>
+    <xsd:complexType name="RootType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+XSD;
+
+        $structure = [
+            'valid.xsd' => $xsd,
+        ];
+        $root = vfsStream::setup('root', null, $structure);
+        $encoder = new Encoder('root', $root->getChild('valid.xsd')->url());
+        $data = [
+            'not-name' => 'john',
+        ];
         $this->expectException(XsdValidationException::class);
+
+        // When using the VFS, the error message contains the path to the
+        // project itself on disk, so we wildcard that out of the assertion.
+        $this->expectExceptionMessageRegExp('!XSD validation error code 1871.*line 2 column 0: Element \'not-name\': This element is not expected. Expected is \( name \).!');
+        $encoder->encode($data, 'xml');
     }
 }

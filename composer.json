@@ -3,6 +3,7 @@
     "description": "An XML Encoder that validates the result against an XSD.",
     "type": "library",
     "require": {
+        "php": "^5.6 || ^7.0",
         "symfony/serializer": "~2.8"
     },
     "require-dev": {

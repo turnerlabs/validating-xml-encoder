@@ -2,14 +2,29 @@
 
 namespace TurnerLabs\ValidatingXmlEncoder\Tests;
 
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use TurnerLabs\ValidatingXmlEncoder\Encoder;
 use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 
+/**
+ * @coversDefaultClass \TurnerLabs\ValidatingXmlEncoder\Encoder
+ */
 class EncoderTest extends TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function testUnreadableXsd()
     {
-        $this->markTestIncomplete();
+        $structure = [
+            'unreadable.xsd' => '',
+        ];
+        $root = vfsStream::setup('root', null, $structure);
+        $root->getChild('unreadable.xsd')->chmod(0);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('vfs://root/unreadable.xsd could not be read.');
+        new Encoder('root', $root->getChild('unreadable.xsd')->url());
     }
 
     public function testEmptyXsd()

@@ -1,8 +1,8 @@
 <?php
 
-namespace Deviantintegral\ValidatingXmlEncoder\Tests;
+namespace TurnerLabs\ValidatingXmlEncoder\Tests;
 
-use Deviantintegral\ValidatingXmlEncoder\Exception\XsdValidationException;
+use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 use PHPUnit\Framework\TestCase;
 
 class EncoderTest extends TestCase

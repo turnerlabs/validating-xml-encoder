@@ -1,6 +1,6 @@
 <?php
 
-namespace Deviantintegral\ValidatingXmlEncoder\Tests\Exception;
+namespace TurnerLabs\ValidatingXmlEncoder\Tests\Exception;
 
 class XsdValidationExceptionTest
 {

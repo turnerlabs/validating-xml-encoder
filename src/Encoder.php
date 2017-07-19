@@ -1,8 +1,8 @@
 <?php
 
-namespace Deviantintegral\ValidatingXmlEncoder;
+namespace TurnerLabs\ValidatingXmlEncoder;
 
-use Deviantintegral\ValidatingXmlEncoder\Exception\XsdValidationException;
+use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Deviantintegral\ValidatingXmlEncoder\Exception;
+namespace TurnerLabs\ValidatingXmlEncoder\Exception;
 
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 

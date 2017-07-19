@@ -106,8 +106,8 @@ jobs:
       # run tests!
       - run: vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --stop-on-violation --using-cache=no --path-mode=intersection -- src tests
 
-  workflows:
-    version: 2
-      test_and_lint:
-        - phpunit
-        - code-fixer
+workflows:
+  version: 2
+    test_and_lint:
+      - phpunit
+      - code-fixer

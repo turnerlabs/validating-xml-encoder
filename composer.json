@@ -19,12 +19,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "\\TurnerLabs\\ValidatingXmlEncoder\\" : "src/"
+            "TurnerLabs\\ValidatingXmlEncoder\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "\\TurnerLabs\\ValidatingXmlEncoder\\Tests\\" : "tests/src/"
+            "TurnerLabs\\ValidatingXmlEncoder\\Tests\\" : "tests/src/"
         }
     }
 }

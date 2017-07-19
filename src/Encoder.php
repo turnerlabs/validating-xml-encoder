@@ -44,7 +44,7 @@ class Encoder extends XmlEncoder
     /**
      * {@inheritdoc}
      */
-    public function encode($data, $format, array $context = array())
+    public function encode($data, $format, array $context = [])
     {
         // Since the parent class only allows us to return a string, we
         // minimize our code duplication and re-parse the string. If this turns
@@ -85,7 +85,7 @@ class Encoder extends XmlEncoder
         $document = new \DOMDocument();
 
         // Set an attribute on the DOM document specifying, as part of the XML declaration,
-        $xmlOptions = array(
+        $xmlOptions = [
             // nicely formats output with indentation and extra space
             'xml_format_output' => 'formatOutput',
             // the version number of the document
@@ -94,7 +94,7 @@ class Encoder extends XmlEncoder
             'xml_encoding' => 'encoding',
             // whether the document is standalone
             'xml_standalone' => 'xmlStandalone',
-        );
+        ];
         foreach ($xmlOptions as $xmlOption => $documentProperty) {
             if (isset($context[$xmlOption])) {
                 $document->$documentProperty = $context[$xmlOption];

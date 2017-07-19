@@ -57,12 +57,12 @@ class XsdValidationExceptionTest extends TestCase
      */
     public function getXsdErrorLevels()
     {
-        return array(
-            array(LIBXML_ERR_WARNING, 'warning'),
-            array(LIBXML_ERR_ERROR, 'error'),
-            array(LIBXML_ERR_FATAL, 'fatal'),
-            array(-1, 'unknown'),
-        );
+        return [
+            [LIBXML_ERR_WARNING, 'warning'],
+            [LIBXML_ERR_ERROR, 'error'],
+            [LIBXML_ERR_FATAL, 'fatal'],
+            [-1, 'unknown'],
+        ];
     }
 
     /**

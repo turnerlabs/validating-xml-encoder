@@ -36,9 +36,7 @@ class Encoder extends XmlEncoder
 
         // We load the XSD into memory so we avoid having to enable external
         // XML entities and the security implications of that.
-        $this->xsd = file_get_contents($xsd_path);
-
-        if (!$this->xsd) {
+        if (!$this->xsd = file_get_contents($xsd_path)) {
             throw new \RuntimeException('The XSD could not be loaded.');
         }
     }

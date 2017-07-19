@@ -77,6 +77,8 @@ class Encoder extends XmlEncoder
      *
      * @param array $context options that the encoder has access to
      *
+     * @see \Symfony\Component\Serializer\Encoder\XmlEncoder::createDomDocument
+     *
      * @return \DOMDocument
      */
     private function createDomDocument(array $context)

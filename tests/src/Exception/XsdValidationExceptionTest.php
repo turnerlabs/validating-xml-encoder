@@ -39,14 +39,29 @@ class XsdValidationExceptionTest extends TestCase
         $this->assertEquals("XSD validation $string code 123 in /tmp/file.xml line 789 column 456: This is a test", $e->getMessage());
     }
 
+    /**
+     * Test that use use the XML error code as the exception code.
+     *
+     * @covers ::__construct
+     */
     public function testGetCode()
     {
-        $this->markTestIncomplete();
+        $error = $this->getLibXmlError();
+        $e = new XsdValidationException($error);
+        $this->assertEquals($error->code, $e->getCode());
     }
 
+    /**
+     * Test that we properly set the previous exception.
+     *
+     * @covers ::__construct
+     */
     public function testGetPrevious()
     {
-        $this->markTestIncomplete();
+        $error = $this->getLibXmlError();
+        $previous = new \Exception();
+        $e = new XsdValidationException($error, $previous);
+        $this->assertEquals($previous, $e->getPrevious());
     }
 
     /**

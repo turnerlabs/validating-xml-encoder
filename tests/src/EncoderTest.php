@@ -66,12 +66,40 @@ class EncoderTest extends TestCase
         $encoder = new Encoder('root', $root->getChild('invalid.xsd')->url());
         $this->expectException(\PHPUnit_Framework_Error_Warning::class);
         $this->expectExceptionMessage('DOMDocument::schemaValidateSource(): Invalid Schema');
-        $encoder->encode('<xml>test</xml>', 'xml');
+        $encoder->encode([], 'xml');
     }
 
+    /**
+     * Test validating and encoding.
+     */
     public function testValidXsd()
     {
-        $this->markTestIncomplete();
+        $xsd =<<<XSD
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="root" type="RootType"/>
+    <xsd:complexType name="RootType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+XSD;
+
+        $structure = [
+            'valid.xsd' => $xsd,
+        ];
+        $root = vfsStream::setup('root', null, $structure);
+        $encoder = new Encoder('root', $root->getChild('valid.xsd')->url());
+        $data = [
+            'name' => 'john',
+        ];
+        $result = $encoder->encode($data, 'xml');
+        $expected = <<<'XML'
+<?xml version="1.0"?>
+<root><name>john</name></root>
+
+XML;
+        $this->assertEquals($expected, $result);
     }
 
     public function testInvalidXml()

@@ -15,6 +15,24 @@ defaults: &defaults
 
   working_directory: ~/repo
 
+install_composer: &install_composer
+    command: |
+        cd /tmp
+        EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
+        php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
+
+        if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
+        then
+            >&2 echo 'ERROR: Invalid installer signature'
+            rm composer-setup.php
+            exit 1
+        fi
+
+        sudo php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
+        RESULT=$?
+        rm composer-setup.php
+        exit $RESULT
 
 version: 2
 jobs:
@@ -24,23 +42,7 @@ jobs:
       - checkout
 
       - run:
-          command: |
-              cd /tmp
-              EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
-              php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-              ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
-
-              if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
-              then
-                  >&2 echo 'ERROR: Invalid installer signature'
-                  rm composer-setup.php
-                  exit 1
-              fi
-
-              sudo php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
-              RESULT=$?
-              rm composer-setup.php
-              exit $RESULT
+          <<: *install_composer
 
       # Download and cache dependencies
       - restore_cache:
@@ -66,23 +68,7 @@ jobs:
       - checkout
 
       - run:
-          command: |
-              cd /tmp
-              EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
-              php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-              ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
-
-              if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
-              then
-                  >&2 echo 'ERROR: Invalid installer signature'
-                  rm composer-setup.php
-                  exit 1
-              fi
-
-              sudo php composer-setup.php --quiet --install-dir /usr/local/bin --filename composer
-              RESULT=$?
-              rm composer-setup.php
-              exit $RESULT
+          <<: *install_composer
 
       # Download and cache dependencies
       - restore_cache:

@@ -38,9 +38,18 @@ class EncoderTest extends TestCase
         new Encoder('root', $root->getChild('unreadable.xsd')->url());
     }
 
+    /**
+     * @covers ::__construct
+     */
     public function testEmptyXsd()
     {
-        $this->markTestIncomplete();
+        $structure = [
+            'invalid.xsd' => '',
+        ];
+        $root = vfsStream::setup('root', null, $structure);
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('vfs://root/invalid.xsd could not be loaded.');
+        new Encoder('root', $root->getChild('invalid.xsd')->url());
     }
 
     public function testInvalidXsd()

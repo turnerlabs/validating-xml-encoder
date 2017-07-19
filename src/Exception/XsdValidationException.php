@@ -16,7 +16,23 @@ class XsdValidationException extends UnexpectedValueException
     public function __construct(\LibXMLError $error, \Throwable $previous = null)
     {
         $this->xmlError = $error;
-        $message = sprintf('XSD validation %s %s at %s %s %s: %s', $error->level, $error->code, $error->file, $error->line, $error->column, $error->message);
+        switch ($error->level) {
+            case LIBXML_ERR_WARNING:
+                $level = 'warning';
+                break;
+            case LIBXML_ERR_ERROR:
+                $level = 'error';
+                break;
+            case LIBXML_ERR_FATAL:
+                $level = 'fatal';
+                break;
+            default:
+                $level = 'info';
+                break;
+        }
+
+        $message = sprintf('XSD validation %s code %s in %s line %s column %s: %s',
+            $level, $error->code, $error->file, $error->line, $error->column, $error->message);
         parent::__construct($message, $error->code, $previous);
     }
 

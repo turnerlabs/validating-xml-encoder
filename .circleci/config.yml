@@ -2,20 +2,24 @@
 #
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
+
+defaults: &defaults
+  docker:
+    # specify the version you desire here
+    - image: circleci/php:7.1.5-browsers
+
+    # Specify service dependencies here if necessary
+    # CircleCI maintains a library of pre-built images
+    # documented at https://circleci.com/docs/2.0/circleci-images/
+    # - image: circleci/mysql:9.4
+
+  working_directory: ~/repo
+
+
 version: 2
 jobs:
   phpunit:
-    docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1.5-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/repo
-
+    <<: *defaults
     steps:
       - checkout
 
@@ -56,16 +60,7 @@ jobs:
       - run: vendor/bin/phpunit
 
   code-fixer:
-    docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1.5-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/repo
+    <<: *defaults
 
     steps:
       - checkout

@@ -6,7 +6,7 @@
 defaults: &defaults
   docker:
     # specify the version you desire here
-    - image: circleci/php:7.1.5-browsers
+    - image: circleci/php:7.1
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -34,9 +34,7 @@ install_composer: &install_composer
         rm composer-setup.php
         exit $RESULT
 
-version: 2
-jobs:
-  phpunit:
+phpunit: &phpunit
     <<: *defaults
     steps:
       - checkout
@@ -60,6 +58,21 @@ jobs:
 
       # run tests!
       - run: vendor/bin/phpunit
+
+version: 2
+jobs:
+  phpunit-56:
+     <<: *phpunit
+     docker:
+        -image: circleci/php:5.6
+  phpunit-70:
+     <<: *phpunit
+     docker:
+        -image: circleci/php:7.0
+  phpunit-71:
+     <<: *phpunit
+     docker:
+        -image: circleci/php:7.1
 
   code-fixer:
     <<: *defaults
@@ -91,5 +104,7 @@ workflows:
   version: 2
   test_and_lint:
     jobs:
-      - phpunit
+      - phpunit-56
+      - phpunit-70
+      - phpunit-71
       - code-fixer

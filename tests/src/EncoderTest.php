@@ -15,6 +15,17 @@ class EncoderTest extends TestCase
     /**
      * @covers ::__construct
      */
+    public function testXsdDoesNotExist()
+    {
+        $root = vfsStream::setup('root');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('vfs://root/does-not-exist.xsd could not be read.');
+        new Encoder('root', $root->url() . '/does-not-exist.xsd');
+    }
+
+    /**
+     * @covers ::__construct
+     */
     public function testUnreadableXsd()
     {
         $structure = [

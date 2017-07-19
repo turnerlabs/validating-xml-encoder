@@ -13,7 +13,7 @@ class XsdValidationException extends UnexpectedValueException
      */
     protected $xmlError;
 
-    public function __construct(\LibXMLError $error, \Throwable $previous = null)
+    public function __construct(\LibXMLError $error, \Exception $previous = null)
     {
         $this->xmlError = $error;
         switch ($error->level) {

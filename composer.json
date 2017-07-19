@@ -1,8 +1,9 @@
 {
-    "name": "deviantintegral/validating-xml-encoder",
+    "name": "turnerlabs/validating-xml-encoder",
     "description": "An XML Encoder that validates the result against an XSD.",
     "type": "library",
     "require": {
+        "php": "^5.6 || ^7.0",
         "symfony/serializer": "~2.8"
     },
     "require-dev": {
@@ -13,17 +14,17 @@
     "authors": [
         {
             "name": "Andrew Berry",
-            "email": "deviantintegral@gmail.com"
+            "email": "andrew.berry@lullabot.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "\\Deviantintegral\\ValidatingXmlEncoder\\" : "src/"
+            "\\TurnerLabs\\ValidatingXmlEncoder\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "\\Deviantintegral\\ValidatingXmlEncoder\\Tests\\" : "tests/src/"
+            "\\TurnerLabs\\ValidatingXmlEncoder\\Tests\\" : "tests/src/"
         }
     }
 }

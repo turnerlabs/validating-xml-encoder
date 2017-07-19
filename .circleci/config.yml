@@ -19,6 +19,8 @@ jobs:
     steps:
       - checkout
 
+      - run: composer self-update
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -34,4 +36,4 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
         
       # run tests!
-      - run: phpunit
+      - run: vendor/bin/phpunit

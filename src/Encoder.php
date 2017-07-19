@@ -21,7 +21,7 @@ class Encoder extends XmlEncoder
      * Construct a new Encoder.
      *
      * @param string $rootNodeName The name of the root XML node.
-     * @param string $xsd_path The path to the XSD to validate against.
+     * @param string $xsd_path     The path to the XSD to validate against.
      *
      * @throws \InvalidArgumentException Thrown when $xsd_path is inaccessible.
      * @throws \RuntimeException         Thrown when the XSD is accessible but could not be loaded.
@@ -44,7 +44,7 @@ class Encoder extends XmlEncoder
     /**
      * {@inheritdoc}
      */
-    public function encode($data, $format, array $context = [])
+    public function encode($data, $format, array $context = array())
     {
         // Since the parent class only allows us to return a string, we
         // minimize our code duplication and re-parse the string. If this turns

@@ -30,8 +30,8 @@ class Encoder extends XmlEncoder
     {
         parent::__construct($rootNodeName);
 
-        if (!file_exists($xsd_path) && !is_readable($xsd_path)) {
-            throw new \InvalidArgumentException('The XSD could not be read');
+        if (!file_exists($xsd_path) || !is_readable($xsd_path)) {
+            throw new \InvalidArgumentException(sprintf('%s could not be read.', $xsd_path));
         }
 
         // We load the XSD into memory so we avoid having to enable external

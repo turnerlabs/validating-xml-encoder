@@ -52,9 +52,21 @@ class EncoderTest extends TestCase
         new Encoder('root', $root->getChild('invalid.xsd')->url());
     }
 
+    /**
+     * Test that an invalid XSD throws an error.
+     *
+     * @covers ::encode
+     */
     public function testInvalidXsd()
     {
-        $this->markTestIncomplete();
+        $structure = [
+            'invalid.xsd' => '<xml>this is not an xsd</xml>',
+        ];
+        $root = vfsStream::setup('root', null, $structure);
+        $encoder = new Encoder('root', $root->getChild('invalid.xsd')->url());
+        $this->expectException(\PHPUnit_Framework_Error_Warning::class);
+        $this->expectExceptionMessage('DOMDocument::schemaValidateSource(): Invalid Schema');
+        $encoder->encode('<xml>test</xml>', 'xml');
     }
 
     public function testValidXsd()

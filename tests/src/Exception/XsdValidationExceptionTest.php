@@ -5,11 +5,17 @@ namespace TurnerLabs\ValidatingXmlEncoder\Tests\Exception;
 use PHPUnit\Framework\TestCase;
 use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 
+/**
+ * @coversDefaultClass TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException
+ */
 class XsdValidationExceptionTest extends TestCase
 {
 
     /**
      * Test returning the original libxml error.
+     *
+     * @covers ::__construct
+     * @covers ::getXmlError
      */
     public function testGetXmlError()
     {
@@ -18,6 +24,11 @@ class XsdValidationExceptionTest extends TestCase
         $this->assertEquals($error, $e->getXmlError());
     }
 
+    /**
+     * Test the error message we generate.
+     *
+     * @covers ::__construct
+     */
     public function testGetMessage()
     {
         $error = $this->getLibXmlError();

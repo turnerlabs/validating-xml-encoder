@@ -2,12 +2,11 @@
 
 namespace TurnerLabs\ValidatingXmlEncoder\Tests;
 
-use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 use PHPUnit\Framework\TestCase;
+use TurnerLabs\ValidatingXmlEncoder\Exception\XsdValidationException;
 
 class EncoderTest extends TestCase
 {
-
     public function testUnreadableXsd()
     {
         $this->markTestIncomplete();

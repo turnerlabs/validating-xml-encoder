@@ -19,7 +19,7 @@ class XsdValidationExceptionTest extends TestCase
     public function testGetXmlError()
     {
         $error = $this->getLibXmlError();
-        $e = new XsdValidationException($error);
+        $e = new XsdValidationException($error, new \DOMDocument());
         $this->assertEquals($error, $e->getXmlError());
     }
 
@@ -35,7 +35,7 @@ class XsdValidationExceptionTest extends TestCase
     {
         $error = $this->getLibXmlError();
         $error->level = $level;
-        $e = new XsdValidationException($error);
+        $e = new XsdValidationException($error, new \DOMDocument());
         $this->assertEquals("XSD validation $string code 123 in /tmp/file.xml line 789 column 456: This is a test", $e->getMessage());
     }
 
@@ -47,7 +47,7 @@ class XsdValidationExceptionTest extends TestCase
     public function testGetCode()
     {
         $error = $this->getLibXmlError();
-        $e = new XsdValidationException($error);
+        $e = new XsdValidationException($error, new \DOMDocument());
         $this->assertEquals($error->code, $e->getCode());
     }
 
@@ -60,8 +60,21 @@ class XsdValidationExceptionTest extends TestCase
     {
         $error = $this->getLibXmlError();
         $previous = new \Exception();
-        $e = new XsdValidationException($error, $previous);
+        $e = new XsdValidationException($error, new \DOMDocument(), $previous);
         $this->assertEquals($previous, $e->getPrevious());
+    }
+
+    /**
+     * Test that we can retrieve the invalid XML document.
+     *
+     * @covers ::getInvalidXmlDocument
+     */
+    public function testGetInvalidXmlDocument()
+    {
+        $error = $this->getLibXmlError();
+        $dom = new \DOMDocument();
+        $e = new XsdValidationException($error, $dom);
+        $this->assertEquals($dom, $e->getInvalidXmlDocument());
     }
 
     /**

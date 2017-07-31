@@ -23,8 +23,8 @@ class XsdValidationException extends UnexpectedValueException
     /**
      * Construct a new XsdValidationException.
      *
-     * @param \LibXMLError $error  The error that triggered the exception.
-     * @param \DOMDocument $dom               The invalid XML document.
+     * @param \LibXMLError    $error    The error that triggered the exception.
+     * @param \DOMDocument    $dom      The invalid XML document.
      * @param \Exception|null $previous (optional) A previous exception, if it exists.
      */
     public function __construct(\LibXMLError $error, \DOMDocument $dom, \Exception $previous = null)

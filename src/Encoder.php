@@ -65,7 +65,7 @@ class Encoder extends XmlEncoder
         libxml_disable_entity_loader($disableEntities);
 
         if (!$valid) {
-            throw new XsdValidationException($error);
+            throw new XsdValidationException($error, $dom);
         }
 
         return $dom->saveXML();

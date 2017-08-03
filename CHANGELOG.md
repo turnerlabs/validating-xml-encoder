@@ -8,15 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [0.2] - 2017-08-03
+
+Added invalid XML document in XSD exceptions.
+
+### Added
+
 * [DRACO-2883](http://tickets.turner.com/browse/DRACO-2883): Include generated
   (but invalid) XML in XSD exceptions. The constructor of
   [XsdValidationException](src/Exception/XsdValidationException.php) has been
   changed to add the original \DOMDocument, and a get method added to retrieve
   it later.
-
-### Changed
-
-### Fixed
 
 ## [0.1] - 2017-07-20
 

@@ -59,7 +59,7 @@ phpunit: &phpunit
       # run tests!
       - run: vendor/bin/phpunit
 
-phpunit1: &phpunit1
+phpunit-lowest: &phpunit-lowest
     <<: *defaults
     steps:
       - checkout
@@ -87,7 +87,7 @@ phpunit1: &phpunit1
 version: 2
 jobs:
   phpunit-56-lowest:
-    <<: *phpunit1
+    <<: *phpunit-lowest
     docker:
          - image: circleci/php:5.6
 

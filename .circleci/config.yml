@@ -65,8 +65,6 @@ jobs:
     <<: *phpunit
     docker:
          - image: circleci/php:5.6
-    steps:
-      - run: composer update --prefer-lowest
 
   phpunit-56:
      <<: *phpunit
@@ -97,7 +95,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: composer install -n --prefer-dist
+      - run: composer update --prefer-lowest
 
       - save_cache:
           paths:

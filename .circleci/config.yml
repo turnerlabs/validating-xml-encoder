@@ -62,9 +62,7 @@ phpunit: &phpunit
 version: 2
 jobs:
   phpunit-56-lowest:
-    <<: *phpunit
-    docker:
-         - image: circleci/php:5.6
+    <<: *defaults
     steps:
       - checkout
 

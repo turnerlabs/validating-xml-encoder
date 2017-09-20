@@ -61,6 +61,13 @@ phpunit: &phpunit
 
 version: 2
 jobs:
+  phpunit-56-lowest:
+    <<: *phpunit
+    docker:
+         - image: circleci/php:5.6
+    steps:
+      - run: composer update --prefer-lowest
+
   phpunit-56:
      <<: *phpunit
      docker:
@@ -104,6 +111,7 @@ workflows:
   version: 2
   test_and_lint:
     jobs:
+      - phpunit-56-lowest
       - phpunit-56
       - phpunit-70
       - phpunit-71

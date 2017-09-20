@@ -59,12 +59,8 @@ phpunit: &phpunit
       # run tests!
       - run: vendor/bin/phpunit
 
-version: 2
-jobs:
-  phpunit-56-lowest:
-    <<: *phpunit
-    docker:
-        - image: circleci/php:5.6
+phpunit1: &phpunit1
+    <<: *defaults
     steps:
       - checkout
 
@@ -78,16 +74,22 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-          - run: composer update --prefer-lowest
+      - run: composer update --prefer-lowest
 
-          - save_cache:
-              paths:
-                - ./vendor
-              key: v1-dependencies-{{ checksum "composer.json" }}
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
 
-          # run tests!
-          - run: vendor/bin/phpunit
+      # run tests!
+      - run: vendor/bin/phpunit
 
+version: 2
+jobs:
+  phpunit-56-lowest:
+    <<: *phpunit1
+    docker:
+         - image: circleci/php:5.6
 
   phpunit-56:
      <<: *phpunit
